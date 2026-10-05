@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gusto | Payroll, Benefits, and HR</title>
+    
+    <!-- Google Fonts: DM Sans for the friendly Gusto look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"DM Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        'gusto-navy': '#00313C',     /* Dark blue text */
+                        'gusto-teal': '#0A8080',     /* Teal accents/buttons */
+                        'gusto-teal-hover': '#086666',
+                        'gusto-sand': '#F6EBE3',     /* Warm background */
+                        'gusto-light': '#F4F7F6',    /* Input background */
+                        'gusto-coral': '#F07F60',    /* Accent color */
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'DM Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            background-color: #F6EBE3;
+            transition: background-color 0.3s ease;
+        }
+        
+        .page-state {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .page-state.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Ensure dashboard background is white */
+        body.dashboard-mode {
+            background-color: #F9FAFB; /* Tailwind gray-50 */
+        }
+        
+        .logo-font {
+            font-weight: 700;
+            letter-spacing: -0.05em;
+        }
+    </style>
+</head>
+<body class="text-gusto-navy min-h-screen flex flex-col">
+
+    <div id="state-landing" class="page-state active flex-grow flex flex-col">
+        <!-- Navbar -->
+        <nav class="flex items-center justify-between p-6 lg:px-12 w-full">
+            <div class="flex items-center space-x-8">
+                <span class="text-3xl logo-font text-gusto-teal cursor-pointer">gusto</span>
+                <div class="hidden md:flex space-x-6 text-sm font-bold">
+                    <a href="#" class="hover:text-gusto-teal transition-colors">Products</a>
+                    <a href="#" class="hover:text-gusto-teal transition-colors">Resources</a>
+                    <a href="#" class="hover:text-gusto-teal transition-colors">Pricing</a>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button onclick="switchState('state-login')" class="hidden sm:block text-sm font-bold hover:text-gusto-teal transition-colors">Sign in</button>
+                <button onclick="switchState('state-login')" class="bg-gusto-teal text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-gusto-teal-hover transition-colors">
+                    Login
+                </button>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <main class="flex-grow flex items-center justify-center px-6 lg:px-12 pt-10 pb-20">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-8">
+                    Build a great place to work
+                </h1>
+                <p class="text-xl md:text-2xl mb-10 max-w-2xl mx-auto text-gray-700">
+                    Gusto's people platform helps businesses like yours onboard, pay, insure, and support your hardworking team.
+                </p>
+                <button onclick="switchState('state-login')" class="bg-gusto-coral text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-orange-600 transition-colors shadow-lg">
+                    Login to your account
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <div id="state-login" class="page-state flex-grow flex flex-col items-center justify-center p-6 bg-gusto-sand">
+        <div class="w-full max-w-md">
+            <div class="mb-8 text-center">
+                <h1 class="text-5xl logo-font text-gusto-navy cursor-pointer" onclick="switchState('state-landing')">gusto</h1>
+            </div>
+            
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden p-8 sm:p-10 border border-gray-100">
+                <h2 class="text-2xl font-bold mb-6 text-center">Welcome back</h2>
+                
+                <form id="login-form" class="space-y-5">
+                    <!-- Email Input -->
+                    <div>
+                        <label for="email" class="block text-sm font-bold text-gusto-navy mb-1.5">Email address</label>
+                        <input type="email" id="email" required placeholder="name@company.com" 
+                               class="w-full px-4 py-3 bg-gusto-light border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-gusto-teal transition-all">
+                    </div>
+                    
+                    <!-- Password Input -->
+                    <div>
+                        <div class="flex justify-between items-center mb-1.5">
+                            <label for="password" class="block text-sm font-bold text-gusto-navy">Password</label>
+                            <a href="#" class="text-sm font-medium text-gusto-teal hover:underline">Forgot password?</a>
+                        </div>
+                        <input type="password" id="password" required placeholder="••••••••" 
+                               class="w-full px-4 py-3 bg-gusto-light border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-gusto-teal transition-all">
+                    </div>
+
+                    <!-- Fake Auth Submit -->
+                    <button type="submit" class="w-full mt-6 py-3.5 px-4 border border-transparent rounded-full shadow-sm text-lg font-bold text-white bg-gusto-teal hover:bg-gusto-teal-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gusto-teal transition-colors">
+                        Sign In
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="state-dashboard" class="page-state flex-grow flex flex-col min-h-screen">
+        <!-- Dashboard Navbar -->
+        <nav class="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between sticky top-0 z-10">
+            <div class="flex items-center space-x-6">
+                <span class="text-3xl logo-font text-gusto-teal cursor-pointer">gusto</span>
+                <div class="hidden md:flex space-x-1">
+                    <a href="#" class="px-3 py-2 bg-gray-100 rounded-lg text-sm font-bold text-gusto-navy">Home</a>
+                    <a href="#" class="px-3 py-2 text-sm font-bold text-gray-500 hover:bg-gray-50 rounded-lg transition-colors">Pay</a>
+                    <a href="#" class="px-3 py-2 text-sm font-bold text-gray-500 hover:bg-gray-50 rounded-lg transition-colors">Benefits</a>
+                    <a href="#" class="px-3 py-2 text-sm font-bold text-gray-500 hover:bg-gray-50 rounded-lg transition-colors">Time</a>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="w-10 h-10 rounded-full bg-gusto-navy text-white flex items-center justify-center font-bold">
+                    ME
+                </div>
+                <button onclick="switchState('state-landing')" class="text-sm font-bold text-gray-500 hover:text-gusto-navy transition-colors">
+                    Sign out
+                </button>
+            </div>
+        </nav>
+
+        <!-- Dashboard Content -->
+        <main class="flex-grow max-w-5xl w-full mx-auto p-6 lg:p-8">
+            <h1 class="text-3xl font-bold mb-2">Your Pay Stubs</h1>
+            <p class="text-gray-500 mb-8">Review your recent payroll history and download statements.</p>
+            
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                <!-- Table Header -->
+                <div class="grid grid-cols-12 gap-4 p-4 border-b border-gray-200 bg-gray-50 text-xs font-bold text-gray-500 uppercase tracking-wider">
+                    <div class="col-span-4 md:col-span-3">Pay Date</div>
+                    <div class="col-span-4 md:col-span-3">Amount</div>
+                    <div class="col-span-4 md:col-span-3 hidden md:block">Status</div>
+                    <div class="col-span-4 md:col-span-3 text-right">Actions</div>
+                </div>
+                
+                <!-- Dynamic Pay Stubs Container -->
+                <div id="pay-stubs-list" class="divide-y divide-gray-100">
+                    <!-- Javascript will populate this -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // State Management
+        function switchState(targetId) {
+            // Hide all states
+            document.querySelectorAll('.page-state').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Show target state
+            setTimeout(() => {
+                const target = document.getElementById(targetId);
+                target.classList.add('active');
+                
+                // Adjust body background color based on state
+                if (targetId === 'state-dashboard') {
+                    document.body.classList.add('dashboard-mode');
+                } else {
+                    document.body.classList.remove('dashboard-mode');
+                }
+            }, 50); // slight delay to allow display block to apply before opacity fade in
+        }
+
+        // Login Form Handler (Fake Auth)
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent page reload
+            // Bypass real auth and jump straight to dashboard
+            switchState('state-dashboard');
+        });
+
+        // Dates as requested from June 8 till October 2 (Fridays)
+        const payDates = [
+            'June 12',
+            'June 19',
+            'June 26',
+            'July 3',
+            'July 10',
+            'July 17',
+            'July 24',
+            'July 31',
+            'August 7',
+            'August 14',
+            'August 21',
+            'August 28',
+            'September 4',
+            'September 11',
+            'September 18',
+            'September 25',
+            'October 2'
+        ];
+
+        // Standard PDF Placeholder
+        const DUMMY_PDF_URL = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
+
+        // Function to generate the HTML for each stub
+        function renderPayStubs() {
+            const container = document.getElementById('pay-stubs-list');
+            
+            // Reverse the array so the most recent dates are at the top
+            const reversedDates = [...payDates].reverse();
+
+            let htmlContent = '';
+
+            reversedDates.forEach(date => {
+                let amount = 0;
+                
+                // Specific rule for October 2
+                if (date === 'October 2') {
+                    amount = 833.90;
+                } else {
+                    // Random number between 700.00 and 800.00
+                    amount = (Math.random() * (800 - 700) + 700);
+                }
+
+                // Format to 2 decimal places
+                const formattedAmount = amount.toFixed(2);
+                
+                // Append the row HTML
+                htmlContent += `
+                    <div class="grid grid-cols-12 gap-4 p-4 items-center hover:bg-gray-50 transition-colors">
+                        <div class="col-span-4 md:col-span-3">
+                            <p class="font-bold text-gusto-navy">${date}, 2026</p>
+                            <p class="text-xs text-gray-500">Direct Deposit</p>
+                        </div>
+                        
+                        <div class="col-span-4 md:col-span-3">
+                            <p class="font-bold text-lg text-gusto-navy">Pay $${formattedAmount}</p>
+                        </div>
+                        
+                        <div class="col-span-4 md:col-span-3 hidden md:block">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                Paid
+                            </span>
+                        </div>
+                        
+                        <div class="col-span-4 md:col-span-3 text-right">
+                            <a href="${DUMMY_PDF_URL}" target="_blank" rel="noopener noreferrer" 
+                               class="inline-block border border-gray-300 bg-white text-gusto-navy px-4 py-2 rounded-full text-sm font-bold hover:bg-gray-50 transition-colors focus:ring-2 focus:ring-offset-1 focus:ring-gusto-teal">
+                                Print PDF
+                            </a>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = htmlContent;
+        }
+
+        // Initialize dashboard data on page load
+        renderPayStubs();
+    </script>
+</body>
+</html>
